@@ -1,34 +1,30 @@
-/*  Es (app.js) file main ham server create kartian hain*/ 
+const express = require('express')
 
-const express = require('express') // server import hogaya 
-
-const app = express() 
+const app = express()
 app.use(express.json())
-const notes = []
+const note = []
 
+// app method 
 app.post("/notes",(req,res)=>{
-    notes.push(req.body)
-    console.log(notes)
-    res.send('note created')
+    note.push(req.body)
+    res.send('notes created')
 })
 
-// get method 
-app.get('/notes',(req,res)=>{
-    res.send(notes)
+//  get method
+app.get("/notes",(req,res)=>{
+    res.send(note)
 })
 
-// Delete 
+// delete method
+
 app.delete('/notes/:id',(req,res)=>{
-   
-    delete notes[req.params.id]
-    res.send(notes)
-
+    delete note[req.params.id]
+    res.send('note Deleted')
 })
 
-// patch Method
-app.patch('/notes/:id',(req,res)=>{
-    notes[req.params.id].description = req.body.description
+//  patch Method
+app.patch("/notes/:id",(req,res)=>{
+    note[req.params.id].description = req.body.description
     res.send('notes updated successfully')
-    })
-
+})
 module.exports = app
